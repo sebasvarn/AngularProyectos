@@ -28,8 +28,11 @@
             ],
             "styles": [
               "src/styles.css"
+
+
             ],
-            "scripts": []
+            "scripts": [ 
+            ]
           },
           "configurations": {
             "production": {

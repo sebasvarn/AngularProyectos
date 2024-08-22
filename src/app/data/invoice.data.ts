@@ -4,7 +4,7 @@ export const invoiceData : Invoice = {
     id: 1,
     name: 'Venta de celulares', 
     client : {
-        name: 'ilson',
+        name: 'Sebastian',
         lastName: 'Vera',
         address: {
             country: 'Paraguay',
@@ -37,7 +37,5 @@ export const invoiceData : Invoice = {
             price: 700,
             quantity: 4,
         },
-
-
     ]
 }

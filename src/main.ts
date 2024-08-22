@@ -7,3 +7,4 @@ import { InvoiceComponent } from './app/components/invoice/invoice.component';
 
 bootstrapApplication(InvoiceComponent, appConfig)
   .catch((err) => console.error(err));
+
