@@ -1,1 +1,12 @@
-<p>client-view works!</p>
+<h3>Informacion del cliente</h3>
+<ul class="list-group">
+  <li class="list-group-item active">
+    Nombre: {{ client.name }} {{ client.lastName }}
+  </li>
+  <li class="list-group-item">
+    Direccion: {{ client.address.country }} /
+    {{ client.address.city }}
+  </li>
+  <li class="list-group-item">
+    {{ client.address.street }} {{ client.address.number }}
+  </li>
