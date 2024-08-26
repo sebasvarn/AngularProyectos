@@ -3,7 +3,7 @@ import { Product } from '../../models/product';
 import { CartItem } from '../../models/cartItem';
 
 @Component({
-  selector: 'cart',
+  selector: 'div[cart]',
   standalone: true,
   imports: [],
   templateUrl: './cart.component.html',
@@ -12,5 +12,7 @@ import { CartItem } from '../../models/cartItem';
 export class CartComponent {
   
   @Input() items !: CartItem[];
+  
+  
   
 }
