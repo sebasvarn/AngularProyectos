@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../models/product';
 import { CartItem } from '../../models/cartItem';
 
@@ -12,7 +12,14 @@ import { CartItem } from '../../models/cartItem';
 export class CartComponent {
   
   @Input() items !: CartItem[];
-  
-  
+  @Output() onRemove : EventEmitter<CartItem> = new EventEmitter<CartItem>();
+
+  removeButton(item : CartItem){
+    this.onRemove.emit(item);
+    if(item.quantity === 0){
+      
+    }
+  }  
+
   
 }

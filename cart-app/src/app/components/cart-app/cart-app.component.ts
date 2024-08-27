@@ -17,11 +17,20 @@ export class CartAppComponent implements OnInit{
   products !: Product[];
 
   items : CartItem[] = [];
-
   
-
   constructor(private service :ProductService){}
   ngOnInit(): void {
     this.products = this.service.getProducts();
   }
+
+  addButton(product : Product){
+   
+    this.items = this.service.addToCart(product);
+
+  }
+
+  removeButton(item : CartItem){
+    this.items = this.service.removeFromCart(item);
+  }
+
 }

@@ -1,23 +1,26 @@
 
 <h2>Carro de Compras</h2>
 
-<table class="table">
+<table class="table table-striped">
     <thead class="thead-dark">
         <tr class="text-center">
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
+            <th></th>
+            
         </tr>
     </thead>
     <tbody>
         @for (item of items; track $index) {
-        <tr>
+        <tr class="text-center">
             <td>{{item.product.name}}</td>
             <td>{{item.product.price}}</td>
             <td>{{item.quantity}}</td>
             <td>{{item.product.price * item.quantity}}</td>
-        </tr>
+            <td><button class="btn btn-danger" (click)="removeButton(item)">X</button></td>
+        </tr> 
         }
 
     </tbody>
