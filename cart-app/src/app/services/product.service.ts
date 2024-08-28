@@ -10,7 +10,7 @@ export class ProductService {
   constructor() { }
 
   getProducts() : Product[] {
-
+    const total = this.totalFromCart();
     return productsData;
   }
 
@@ -39,6 +39,9 @@ export class ProductService {
     return this.items;
   }
 
+  totalFromCart() : number{
+    return this.items.reduce((total, item) => total + item.product.price *item.quantity,0)
+  }
 
 
 }

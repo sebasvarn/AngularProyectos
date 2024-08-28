@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../models/product';
 import { CartItem } from '../../models/cartItem';
+import { TotalCartComponent } from "../total-cart/total-cart.component";
 
 @Component({
   selector: 'div[cart]',
   standalone: true,
-  imports: [],
+  imports: [TotalCartComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -20,6 +21,7 @@ export class CartComponent {
       
     }
   }  
-
+  
+  
   
 }
