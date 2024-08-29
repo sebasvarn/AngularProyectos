@@ -22,5 +22,14 @@
             <td><button class="btn btn-danger" (click)="removeButton(item)">X</button></td>
         </tr> 
         }
+        
     </tbody>
+    <tfoot>
+        <tr class="text-center">
+            <td colspan="4" class="text-end fw-bold">Total</td>
+            <td colspan="1" class="text-start fw-bold">{{total}}</td>
+        </tr>
+    </tfoot>
+
+
 </table>

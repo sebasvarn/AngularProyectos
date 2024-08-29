@@ -4,30 +4,33 @@ import { Product } from '../../models/product';
 import { CatalogComponent } from '../catalog/catalog.component';
 import { CartComponent } from '../cart/cart.component';
 import { CartItem } from '../../models/cartItem';
-import { TotalCartComponent } from '../total-cart/total-cart.component';
 
 @Component({
   selector: 'cart-app',
   standalone: true,
-  imports: [CatalogComponent,CartComponent,TotalCartComponent],
+  imports: [CatalogComponent,CartComponent],
   templateUrl: './cart-app.component.html',
   styleUrl: './cart-app.component.css'
 })
 export class CartAppComponent implements OnInit{
 
   products !: Product[];
-
   items : CartItem[] = [];
   total : Number = 0;
+  showCart : Boolean = false;
+  
   constructor(private service :ProductService){}
   ngOnInit(): void {
-    this.products = this.service.getProducts();
+    this.products = this.service.getProducts();  // Cargar productos
+    this.items = this.service.getCart();         // Cargar carrito desde Session Storage
+    this.totalItems();                           // Calcular el total
   }
 
   addButton(product : Product){
    
     this.items = this.service.addToCart(product);
     this.totalItems();
+
   }
 
   removeButton(item : CartItem){
@@ -38,4 +41,13 @@ export class CartAppComponent implements OnInit{
   totalItems(){
     this.total = this.service.totalFromCart();
   }
+
+  setShowCart(){
+    this.showCart = !this.showCart
+  }
+
+
+
+
+  
 }

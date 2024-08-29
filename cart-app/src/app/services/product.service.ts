@@ -7,7 +7,9 @@ import { CartItem } from '../models/cartItem';
   providedIn: 'root'
 })
 export class ProductService {
-  constructor() { }
+  constructor() { 
+    this.items = this.getCart();
+  }
 
   getProducts() : Product[] {
     const total = this.totalFromCart();
@@ -26,23 +28,32 @@ export class ProductService {
     else{
       this.items = [... this.items, { product:{ ...product} , quantity: 1 }];
     }
+    this.saveSessionCart();
     return this.items;
   }
 
-  removeFromCart(itemRemove: CartItem) : CartItem[]{
-    if(itemRemove.quantity > 1){
+  removeFromCart(itemRemove: CartItem): CartItem[] {
+    if (itemRemove.quantity > 1) {
       itemRemove.quantity--;
-      
-    }else{
-      this.items = this.items.filter(item => item !== itemRemove);
+    } else {
+      this.items = this.items.filter(item => item.product.id !== itemRemove.product.id); // Asegúrate de crear un nuevo array
     }
-    return this.items;
+    this.saveSessionCart(); // Actualiza el Session Storage
+    return [...this.items]; // Devuelve una nueva referencia del array
   }
+  
 
   totalFromCart() : number{
     return this.items.reduce((total, item) => total + item.product.price *item.quantity,0)
   }
 
+  saveSessionCart(){
+    sessionStorage.setItem('cart', JSON.stringify(this.items));
+  }
+
+  getCart() : CartItem[]{
+    return JSON.parse(sessionStorage.getItem('cart') || '[]');
+  }
 
 }
 
