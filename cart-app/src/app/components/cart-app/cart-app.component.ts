@@ -4,11 +4,12 @@ import { Product } from '../../models/product';
 import { CatalogComponent } from '../catalog/catalog.component';
 import { CartComponent } from '../cart/cart.component';
 import { CartItem } from '../../models/cartItem';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
 
 @Component({
   selector: 'cart-app',
   standalone: true,
-  imports: [CatalogComponent,CartComponent],
+  imports: [CatalogComponent,CartComponent, NavbarComponent],
   templateUrl: './cart-app.component.html',
   styleUrl: './cart-app.component.css'
 })
