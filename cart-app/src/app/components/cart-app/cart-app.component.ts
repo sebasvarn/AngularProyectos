@@ -4,7 +4,7 @@ import { Product } from '../../models/product';
 import { CatalogComponent } from '../catalog/catalog.component';
 import { CartComponent } from '../cart/cart.component';
 import { CartItem } from '../../models/cartItem';
-import { NavbarComponent } from '../../../components/navbar/navbar.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'cart-app',
