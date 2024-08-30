@@ -13,9 +13,9 @@ export class NavbarComponent {
   @Input() items: any[] = [];
   @Output() onShowCart : EventEmitter<boolean> = new EventEmitter<boolean>
   
-  setShowCart() {
-  
-    this.showCart = !this.showCart
+  setShowCart(){
+    this.onShowCart.emit();
   }
 
+  
 }

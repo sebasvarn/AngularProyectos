@@ -17,10 +17,9 @@ export class CartComponent {
 
   removeButton(item : CartItem){
     this.onRemove.emit(item);
-    if(item.quantity === 0){
-      
-    }
   }  
+
+  
   
   
   

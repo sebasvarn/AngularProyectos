@@ -44,8 +44,9 @@ export class CartAppComponent implements OnInit{
   }
 
   setShowCart(){
-    this.showCart = !this.showCart
+    this.showCart = !this.showCart;
   }
+
 
 
 
