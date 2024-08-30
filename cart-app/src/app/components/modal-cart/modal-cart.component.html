@@ -1,0 +1,22 @@
+
+<div class="abrir-modal animacion fadeIn">
+    <div class="modal" style="display: block;" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Carro de Compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close" (click)="setShowCart()"></button>
+                    
+                </div>
+                <div class="modal-body">
+                    @if (items.length > 0) {
+                        <div cart [items]="items" [total]="total" (onRemove)="removeButton($event)"></div>
+                    }@else {
+                        <p class="alert alert-info text-center">No hay productos en el carro</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

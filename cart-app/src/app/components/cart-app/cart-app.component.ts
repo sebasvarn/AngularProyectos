@@ -5,11 +5,12 @@ import { CatalogComponent } from '../catalog/catalog.component';
 import { CartComponent } from '../cart/cart.component';
 import { CartItem } from '../../models/cartItem';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ModalCartComponent } from "../modal-cart/modal-cart.component";
 
 @Component({
   selector: 'cart-app',
   standalone: true,
-  imports: [CatalogComponent,CartComponent, NavbarComponent],
+  imports: [CatalogComponent, NavbarComponent, ModalCartComponent],
   templateUrl: './cart-app.component.html',
   styleUrl: './cart-app.component.css'
 })
@@ -46,6 +47,7 @@ export class CartAppComponent implements OnInit{
   setShowCart(){
     this.showCart = !this.showCart;
   }
+
 
 
 

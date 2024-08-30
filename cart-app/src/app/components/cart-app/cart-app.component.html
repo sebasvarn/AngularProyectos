@@ -1,32 +1,11 @@
-
 <navbar [items]="items" (onShowCart)="setShowCart()"></navbar>
 
 <div class="container my-4">
 
     <h1 class="m-3">Carro de Compras</h1>
 
-    
-
-    <div class="row">
-        <div class="col" [className]="showCart ? 'col-lg-8' : 'col'">
-
-            <catalog [products]="products" (addToCart)="addButton($event)"></catalog>
-            
-
-        </div>
-        
-        @if (showCart) {
-        
-            <div class="col-lg-4">
-                    @if (items.length > 0) {
-                        <button class="btn btn-danger float-end" (click)="setShowCart()">Ocultar Carro</button>
-                        <div cart [items]="items" [total]="total" (onRemove)="removeButton($event)"></div>
-                    }@else {
-                        <p class="alert alert-info text-center">No hay productos en el carro</p>
-                    }
-                </div>
-            }            
-        </div>
-    
-    
+    <catalog [products]="products" (addToCart)="addButton($event)"></catalog>
+    @if (showCart) {
+        <modal-cart [items]="items" [total]="total" (onRemove)="removeButton($event)" (onShowCart)="setShowCart()"></modal-cart>
+    }
 </div>
