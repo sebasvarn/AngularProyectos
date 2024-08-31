@@ -1,11 +1,10 @@
-<navbar [items]="items" (onShowCart)="setShowCart()"></navbar>
+<navbar [items]="items" [total]="total" [products]="products"></navbar>
 
 <div class="container my-4">
 
     <h1 class="m-3">Carro de Compras</h1>
 
-    <catalog [products]="products" (addToCart)="addButton($event)"></catalog>
-    @if (showCart) {
-        <modal-cart [items]="items" [total]="total" (onRemove)="removeButton($event)" (onShowCart)="setShowCart()"></modal-cart>
-    }
+    <router-outlet></router-outlet>
+    
+    <router-outlet></router-outlet>
 </div>

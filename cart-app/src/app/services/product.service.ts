@@ -12,7 +12,7 @@ export class ProductService {
   }
 
   getProducts() : Product[] {
-    const total = this.totalFromCart();
+    // const total = this.totalFromCart();
     return productsData;
   }
 
@@ -33,14 +33,17 @@ export class ProductService {
   }
 
   removeFromCart(itemRemove: CartItem): CartItem[] {
+    console.log('Removing item:', itemRemove); // Debugging log
     if (itemRemove.quantity > 1) {
       itemRemove.quantity--;
     } else {
-      this.items = this.items.filter(item => item.product.id !== itemRemove.product.id); // Asegúrate de crear un nuevo array
+      this.items = this.items.filter(item => item.product.id !== itemRemove.product.id);
     }
-    this.saveSessionCart(); // Actualiza el Session Storage
-    return [...this.items]; // Devuelve una nueva referencia del array
+    this.saveSessionCart();
+    console.log('Updated cart:', this.items); // Debugging log
+    return [...this.items];
   }
+  
   
 
   totalFromCart() : number{
@@ -54,6 +57,8 @@ export class ProductService {
   getCart() : CartItem[]{
     return JSON.parse(sessionStorage.getItem('cart') || '[]');
   }
+
+  
 
 }
 

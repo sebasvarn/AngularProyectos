@@ -1,3 +1,6 @@
+
+<h3>Catalogo de productos</h3>
+
 <div class="row">
         @for (product of products; track $index) {
         <div product-card [product]="product" class="col-md-4 my-3" (addToCart)="addButton($event)"></div>

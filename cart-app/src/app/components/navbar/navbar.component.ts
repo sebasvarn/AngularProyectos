@@ -1,21 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  showCart : Boolean = false;
-
+ 
   @Input() items: any[] = [];
-  @Output() onShowCart : EventEmitter<boolean> = new EventEmitter<boolean>
   
-  setShowCart(){
-    this.onShowCart.emit();
-  }
+  @Input() total : Number = 0;
 
+  @Input() products !: Product[];
   
 }

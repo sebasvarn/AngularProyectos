@@ -1,32 +1,49 @@
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr class="text-center">
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th></th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        @for (item of items; track $index) {
-        <tr class="text-center">
-            <td>{{item.product.name}}</td>
-            <td>{{item.product.price}}</td>
-            <td>{{item.quantity}}</td>
-            <td>{{item.product.price * item.quantity}}</td>
-            <td><button class="btn btn-danger" (click)="removeButton(item)">X</button></td>
-        </tr> 
-        }
-        
-    </tbody>
-    <tfoot>
-        <tr class="text-center">
-            <td colspan="4" class="text-end fw-bold">Total</td>
-            <td colspan="1" class="text-start fw-bold">{{total}}</td>
-        </tr>
-    </tfoot>
+<div class="card">
+    <div class="card-content">
+        <div class="card-header">
+            <h3 class="card-title">Carro de Compras</h3>
+        </div>
 
+        <div class="card-body">
+            @if (items.length > 0) {
 
-</table>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @for (item of items; track $index) {
+                        <tr class="text-center">
+                            <td>{{item.product.name}}</td>
+                            <td>{{item.product.price}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.product.price * item.quantity}}</td>
+                            <td><button class="btn btn-danger" (click)="removeButton(item)">X</button></td>
+                        </tr>
+                        }
+    
+                    </tbody>
+                    <tfoot>
+                        <tr class="text-center">
+                            <td colspan="4" class="text-end fw-bold">Total</td>
+                            <td colspan="1" class="text-start fw-bold">{{total}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+            @else {
+                <div class="alert alert-warning" role="alert">
+                    No hay elementos en el carrito
+                </div>
+            }
+        </div>
+    </div>
+</div>
