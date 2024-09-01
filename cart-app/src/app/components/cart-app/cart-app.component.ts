@@ -6,7 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { SharingDataService } from '../../services/sharing-data.service';
 import { Subscription } from 'rxjs';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'cart-app',
   standalone: true,
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class CartAppComponent implements OnInit, OnDestroy {
 
-  products!: Product[];
+  // products!: Product[];
   items: CartItem[] = [];
   total: number = 0;
   private subscriptions: Subscription = new Subscription();
@@ -26,7 +26,7 @@ export class CartAppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.products = this.service.getProducts(); // Load products
+    // this.products = this.service.getProducts(); // Load products
     this.items = this.service.getCart();        // Load cart from Session Storage
     this.calculateTotal();                      // Calculate initial total
 
@@ -38,20 +38,37 @@ export class CartAppComponent implements OnInit, OnDestroy {
     const addSub = this.sharingDataService.addToCartEvent.subscribe(product => {
       this.items = this.service.addToCart(product);
       this.calculateTotal(); // Update total after adding
-
+      Swal.fire('Added to cart', `Added ${product.name} to cart`, 'success');
       // this.router.navigate(['/cart'], { state: { items: this.items, total: this.total } });
       
     });
 
     // Subscribe to itemRemove event
     const removeSub = this.sharingDataService.itemRemoveEvent.subscribe(item => {
-      this.items = this.service.removeFromCart(item);
-      this.calculateTotal(); // Update total after removing
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.items = this.service.removeFromCart(item);
+          this.calculateTotal(); // Update total after removing
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate(['/cart'], { state: { items: this.items, total: this.total } });
+        });
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
 
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate(['/cart'], { state: { items: this.items, total: this.total } });
       })
-      
+
     });
 
     // Add subscriptions to the list for cleanup

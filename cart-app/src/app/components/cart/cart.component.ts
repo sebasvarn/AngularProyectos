@@ -22,6 +22,8 @@ export class CartComponent   {
     this.items = this.router.getCurrentNavigation()?.extras?.state?.['items'] || [];
     this.total = this.router.getCurrentNavigation()?.extras?.state?.['total'] || 0;
   }
+  
+  
 
   removeButton(item : CartItem){
 

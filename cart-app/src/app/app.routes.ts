@@ -4,7 +4,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
-    { path: 'home', component: HomeComponent},
+    { path: '', redirectTo: '/catalog', pathMatch: 'full' },
     { path: 'cart', component: CartComponent},
     {path: 'catalog', component: CatalogComponent}
 ];
