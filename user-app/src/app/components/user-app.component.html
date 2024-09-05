@@ -1,0 +1,12 @@
+
+<h1>User App</h1>
+<div class="container my-3">
+    <div class="row">
+        <div class="col">
+            <user-form (onAddEvent)="addUser($event)"></user-form>
+        </div>
+        <div class="col">
+            <user [users]="users"></user>
+        </div>
+    </div>
+</div>

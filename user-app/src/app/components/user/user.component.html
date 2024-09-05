@@ -1,0 +1,22 @@
+
+            
+            @if (users.length > 0) {
+                <table class="table ">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>lastname</th>
+                            <th>username</th>
+                            <th>email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <list [users]="users"></list>
+                    </tbody>
+                </table>
+            }@else {
+            
+                <div class="aler alert-warning">No hay registros</div>
+            }
+        
