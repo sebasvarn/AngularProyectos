@@ -2,11 +2,13 @@
 <h1>User App</h1>
 <div class="container my-3">
     <div class="row">
-        <div class="col">
-            <user-form (onAddEvent)="addUser($event)"></user-form>
+        <div class="col mt-3 mx-3">
+            <user-form 
+            (onAddEvent)="addUser($event)"
+            ></user-form>
         </div>
-        <div class="col">
-            <user [users]="users"></user>
+        <div class="col mt-3 mx-3">
+            <user [users]="users" (onRemoveEvent)="removeUser($event)"  (updateUserEvent)="updateUser($event)"></user>
         </div>
     </div>
 </div>

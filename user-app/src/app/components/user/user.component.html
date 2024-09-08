@@ -4,19 +4,31 @@
                 <table class="table ">
                     <thead class="table-primary">
                         <tr>
-                            <th>id</th>
+                            <th>update</th>
                             <th>name</th>
                             <th>lastname</th>
                             <th>username</th>
                             <th>email</th>
+                            <th>remove</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <list [users]="users"></list>
+                        @for (user of users; track $index) {
+                            <tr>
+                                <td><button class="btn btn-info 
+                                btn-sm" (click)="updateUser(user)">Update</button></td>
+                                <td>{{user.name}}</td>
+                                <td>{{user.lastname}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td><button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">Remove</button></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             }@else {
             
-                <div class="aler alert-warning">No hay registros</div>
+                <div class="alert alert-warning">No hay registros</div>
             }
+
         

@@ -16,7 +16,8 @@ export class UserAppComponent implements OnInit {
 
   title : string = 'user-app';
   users : User[] = [];
-  
+  userSelected!: User;
+
   constructor(private service: UserService) {
   }
   ngOnInit(): void {
@@ -24,7 +25,14 @@ export class UserAppComponent implements OnInit {
   }
 
   addUser(user: User) {
-    this.users = [...this.users,{... user} ];
+    this.users = [...this.users, {...user, id: new Date().getTime()}];
+  }
+
+  removeUser(id: number) {
+    this.users = this.users.filter(user => user.id != id);
   }
   
+  updateUser(userToUpdate: User) {
+    this.userSelected = {...this.userSelected, ...userToUpdate};
+  }
 }

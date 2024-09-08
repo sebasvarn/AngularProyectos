@@ -7,6 +7,10 @@ import { Observable, of } from 'rxjs';
 })
 export class UserService {
 
+  @Injectable({
+    providedIn: 'root'
+  })
+
 private users: User[] = [{
   id: 1,
   name: 'Sebas',
@@ -30,4 +34,6 @@ private users: User[] = [{
   findAll(): Observable<User[]> {
     return of(this.users);
   }
+
+  
 }
