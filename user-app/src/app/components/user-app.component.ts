@@ -22,10 +22,18 @@ export class UserAppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.service.findAll().subscribe(users => this.users = users);
+
+    this.userSelected = new User();
   }
 
   addUser(user: User) {
-    this.users = [...this.users, {...user, id: new Date().getTime()}];
+    if(user.id > 0) {
+      this.users = this.users.map( u => u.id === user.id ? {...user} : u);}
+    else{
+
+      this.users = [...this.users, {...user, id: new Date().getTime()}];
+    }
+    this.userSelected = new User();
   }
 
   removeUser(id: number) {
@@ -33,6 +41,6 @@ export class UserAppComponent implements OnInit {
   }
   
   updateUser(userToUpdate: User) {
-    this.userSelected = {...this.userSelected, ...userToUpdate};
+    this.userSelected = {...userToUpdate};
   }
 }
