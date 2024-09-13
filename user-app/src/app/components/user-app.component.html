@@ -12,11 +12,13 @@
         </div>
     </div>
     @if (hideForm) {
+        <div class="abrir-modal animacion fadeIn">
 
-        <user-form
-        [user]="userSelected" 
-        (onAddEvent)="addUser($event)"
-        (onOpenEvent)="setOpen()"
-        ></user-form>
+            <user-form
+            [user]="userSelected" 
+            (onAddEvent)="addUser($event)"
+            (onOpenEvent)="setOpen()"
+            ></user-form>
+        </div>
     }
 </div>

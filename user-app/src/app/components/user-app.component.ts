@@ -9,6 +9,7 @@ import { UserFormComponent } from './user-form/user-form.component';
   standalone: true,
   imports: [UserComponent,UserFormComponent],
   templateUrl: './user-app.component.html',
+  styleUrl: './user-app.component.css'
 })
 export class UserAppComponent implements OnInit {
 
