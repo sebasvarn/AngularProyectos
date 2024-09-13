@@ -1,90 +1,104 @@
-<form (ngSubmit)="onAddUser(form)" class="form-inline" #form ="ngForm"   >
+<div class="modal" tabindex="-1" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Form
+                    {{user.id > 0 ? 'Update' : 'Create'}} User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onOpen()"> </button>
+            </div>
+            <div class="modal-body">
 
-    <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="name" [(ngModel)]="user.name" placeholder="Name" required
-        #name="ngModel" 
-        >
-        @if (name.invalid && name.dirty || name.touched) {
-            @if (name.errors!['required']) {
-                <div>
-                    <p class="text-danger">Name is required</p>
-                </div>
-            }
-            
-        }
-    
+                <form class="form-inline" #form="ngForm">
 
-    </div>
-    <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="lastname" [(ngModel)]="user.lastname" placeholder="Lastname" required
-        #lastname="ngModel"
-        >
-        @if (lastname.invalid && lastname.dirty || lastname.touched) {
-            @if (lastname.errors!['required']) {
-                <div>
-                    <p class="text-danger">lastName is required</p>
-                </div>
-            }
-           
-        }
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="user.name" placeholder="Name"
+                            required #name="ngModel">
+                        @if (name.invalid && name.dirty || name.touched) {
+                        @if (name.errors!['required']) {
+                        <div>
+                            <p class="text-danger">Name is required</p>
+                        </div>
+                        }
 
-    </div>
-    <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="username" [(ngModel)]="user.username" placeholder="Username" required
-        #username="ngModel"
-        >
-        @if (username.invalid && username.dirty || username.touched) {
-            @if (username.errors!['required']) {
-                <div>
-                    <p class="text-danger">Username is required</p>
-                </div>
-            }
-            
-        }
-    </div>
-    <div class="form-group mx-sm-3 mb-2">
-        <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email" type="email" required
-        email
-        #email="ngModel"
-        >
-        @if (email.invalid && email.dirty || email.touched) {
-            @if (email.errors!['required']) {
-                <div>
-                    <p class="text-danger">email is required</p>
-                </div>
-            }
+                        }
 
-            @if (email.errors!['email']) {
-                <div>
-                    <p class="text-danger">email must be valid</p>
-                </div>
-            }
-            
+
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" name="lastname" [(ngModel)]="user.lastname"
+                            placeholder="Lastname" required #lastname="ngModel">
+                        @if (lastname.invalid && lastname.dirty || lastname.touched) {
+                        @if (lastname.errors!['required']) {
+                        <div>
+                            <p class="text-danger">lastName is required</p>
+                        </div>
+                        }
+
+                        }
+
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" name="username" [(ngModel)]="user.username"
+                            placeholder="Username" required #username="ngModel">
+                        @if (username.invalid && username.dirty || username.touched) {
+                        @if (username.errors!['required']) {
+                        <div>
+                            <p class="text-danger">Username is required</p>
+                        </div>
+                        }
+
+                        }
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" name="email" [(ngModel)]="user.email"
+                            placeholder="Email" type="email" required email #email="ngModel">
+                        @if (email.invalid && email.dirty || email.touched) {
+                        @if (email.errors!['required']) {
+                        <div>
+                            <p class="text-danger">email is required</p>
+                        </div>
+                        }
+
+                        @if (email.errors!['email']) {
+                        <div>
+                            <p class="text-danger">email must be valid</p>
+                        </div>
+                        }
+
+                        }
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="password" class="form-control" name="password" [(ngModel)]="user.password"
+                            placeholder="Password" required minlength="5" #password="ngModel">
+                        @if (password.invalid && password.dirty || password.touched) {
+                        @if (password.errors!['required']) {
+                        <div>
+                            <p class="text-danger">password is required</p>
+                        </div>
+                        }
+
+                        @if (password.errors!['minlength']) {
+                        <div>
+                            <p class="text-danger">password must be at least 5 characters</p>
+                        </div>
+                        }
+
+                        }
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary mb-2 mx-sm-3"
+                            (click)="onClear(form)">Clear</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onOpen()">Close</button>
+
+                <button type="submit" class="btn btn-primary mb-2 mx-sm-3" [disabled]="form.invalid" (click)="onAddUser(form)">
+                    {{user.id > 0 ? 'Update' : 'Create'}}</button>
                 
-        }
+            </div>
+        </div>
     </div>
-    <div class="form-group mx-sm-3 mb-2">
-        <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Password" required minlength="5"
-        #password="ngModel"
-        >
-        @if (password.invalid && password.dirty || password.touched) {
-            @if (password.errors!['required']) {
-                <div>
-                    <p class="text-danger">password is required</p>
-                </div>
-            }
-
-            @if (password.errors!['minlength']) {
-                <div>
-                    <p class="text-danger">password must be at least 5 characters</p>
-                </div>
-            }
-                
-        }
-    </div>
-    <div>
-        <button type="submit" class="btn btn-primary mb-2 mx-sm-3" [disabled]="form.invalid">Add</button>
-    </div>
-
-
-</form>
+</div>

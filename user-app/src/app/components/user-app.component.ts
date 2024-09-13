@@ -17,6 +17,7 @@ export class UserAppComponent implements OnInit {
   title : string = 'user-app';
   users : User[] = [];
   userSelected!: User;
+  hideForm : boolean = false;
 
   constructor(private service: UserService) {
   }
@@ -42,5 +43,13 @@ export class UserAppComponent implements OnInit {
   
   updateUser(userToUpdate: User) {
     this.userSelected = {...userToUpdate};
+    this.hideForm = true;
   }
+
+  setOpen(){
+    this.hideForm = !this.hideForm;
+  }
+
+  
+
 }
