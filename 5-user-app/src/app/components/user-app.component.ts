@@ -24,6 +24,7 @@ export class UserAppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.service.findAll().subscribe(users => this.users = users);
     this.addUser();
     this.removeUser();
@@ -42,11 +43,18 @@ export class UserAppComponent implements OnInit {
   addUser() {
     this.sharingData.newUserEventEmitter.subscribe(user => {
       if (user.id > 0) {
-        this.users = this.users.map(u => (u.id == user.id) ? { ...user } : u);
+        this.service.updateUser(user).subscribe(userUpdate => {
+          this.users = this.users.map(u => (u.id == userUpdate.id) ? { ...userUpdate } : u)
+          
+        });
       } else {
-        this.users = [... this.users, { ...user, id: new Date().getTime() }];
+        this.service.createUser(user).subscribe(user =>{
+          console.log(user);
+          this.users = [... this.users, { ...user }];
+                    
+        })
       }
-      this.router.navigate(['/users'], { state: { users: this.users } });
+      this.router.navigate(['/users']);
       Swal.fire({
         title: "Guardado!",
         text: "Usuario guardado con exito!",
@@ -67,9 +75,10 @@ export class UserAppComponent implements OnInit {
         confirmButtonText: "Si"
       }).then((result) => {
         if (result.isConfirmed) {
+          this.service.deleteUser(id).subscribe();
           this.users = this.users.filter(user => user.id != id);
           this.router.navigate(['/users/create'], { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/users'], { state: { users: this.users } });
+            this.router.navigate(['/users']);
           });
 
           Swal.fire({
