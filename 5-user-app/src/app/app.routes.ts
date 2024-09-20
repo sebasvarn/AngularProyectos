@@ -6,7 +6,7 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/users'
+        redirectTo: '/users/page/0'
     },
     {
         path: 'users',
@@ -15,6 +15,10 @@ export const routes: Routes = [
     {
         path: 'users/create', 
         component: UserFormComponent,
+    },
+    {
+        path: 'users/page/:page',
+        component: UserComponent
     },
     {
         path: 'users/edit/:id',

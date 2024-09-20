@@ -1,4 +1,8 @@
-<navbar />
+<navbar [users]="users"  [paginator]="paginator"/>
 <div class="container my-4">
     <router-outlet />
+</div>
+<div class="footer text-center">
+    <hr>
+    <p class="text-muted">Hecho por <a href="https://github.com/sebasvarn" target="_blank" class="text-decoration-none">Sebastian Vera</a></p>
 </div>

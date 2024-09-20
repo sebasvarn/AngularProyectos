@@ -6,15 +6,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" [routerLink]="['/users']"
                     >Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/users/create']">New User</a>
+                    <a class="nav-link" [routerLink]="['/users/create']"
+                    [state]="{users: users, paginator: paginator}"
+                    >New User</a>
                 </li>
-               
+                
             </ul>
         </div>
     </div>
