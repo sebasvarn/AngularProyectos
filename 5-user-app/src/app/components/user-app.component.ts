@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharingDataService } from '../services/sharing-data.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'user-app',
@@ -22,7 +23,8 @@ export class UserAppComponent implements OnInit {
     private router: Router,
     private service: UserService,
     private sharingData: SharingDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
   }
 
@@ -41,6 +43,56 @@ export class UserAppComponent implements OnInit {
     this.removeUser();
     this.findUserById();
     this.pageUsersEvent();
+    this.handleLoginEvent();
+  }
+
+  handleLoginEvent() {
+    this.sharingData.handleLoginEventEmitter.subscribe(({username, password}) => {
+      console.log(username, password);
+      this.authService.loginUser({username,password}).subscribe({
+        next: response => {
+            const token = response.token;
+            console.log(token);
+            const payload = this.authService.getPayload(token);
+            
+
+            const user = {
+              username: payload.sub
+            };
+            const login = {
+              user,
+              isAuth: true,
+              isAdmin: payload.isAdmin
+            };
+            //guardar los datos del usuario en el sessionStorage
+            //sessionStorage solo acepta strings entonces convertimos el objeto a string
+            //JSON.stringify convierte un objeto a un string
+            
+            this.authService.token = token;
+            this.authService.user = login;
+
+            console.log(user);
+            
+
+            this.router.navigate(['/users']);
+            
+
+        },
+        error: error => {
+          if(error.status == 401){
+            Swal.fire({
+              title: "Error!",
+              text: "Credenciales incorrectas!",
+              icon: "error"
+            })
+            this.sharingData.errorsEventEmitter.emit(error.error);
+          } else {
+          }
+        }
+      })
+
+    })
+
   }
 
   pageUsersEvent() {
