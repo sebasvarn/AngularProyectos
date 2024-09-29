@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
@@ -23,83 +23,62 @@ export class UserAppComponent implements OnInit {
     private router: Router,
     private service: UserService,
     private sharingData: SharingDataService,
-    private route: ActivatedRoute,
-    private authService: AuthService
-  ) {
+    private authService: AuthService,
+  private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    
     // this.service.findAll().subscribe(users => this.users = users);
-    // this.route.paramMap.subscribe(params => {
-    //   const page: number = +(params.get('page') || '0');
-    //   console.log(page);
-    //   this.service.findAllPageable(page).subscribe(pageable => {
-    //     this.users = pageable.content as User[];
-    //   });
 
+    // this.route.paramMap.subscribe(params => {
+    //   const page = +(params.get('page') || '0');
+    //   console.log(page)
+    //   // this.service.findAllPageable(page).subscribe(pageable => this.users = pageable.content as User[]);
     // })
     this.addUser();
     this.removeUser();
     this.findUserById();
     this.pageUsersEvent();
-    this.handlerLoginEvent();
+    this.handlerLogin();
   }
 
-  handlerLoginEvent() {
-    this.sharingData.handlerLoginEventEmitter.subscribe(({username, password}) => {
-      console.log(username, password);
-      this.authService.loginUser({username,password}).subscribe({
+  handlerLogin() {
+    this.sharingData.handlerLoginEventEmitter.subscribe(({ username, password }) => {
+      console.log(username + ' ' + password);
+
+      this.authService.loginUser({ username, password }).subscribe({
         next: response => {
-            const token = response.token;
-            console.log(token);
-            const payload = this.authService.getPayload(token);
-            console.log(payload);
-            const user = {
-              username: payload.sub
-            };
-            const login = {
-              user,
-              isAuth: true,
-              isAdmin: payload.isAdmin
-            };
-            //guardar los datos del usuario en el sessionStorage
-            //sessionStorage solo acepta strings entonces convertimos el objeto a string
-            //JSON.stringify convierte un objeto a un string
-            
-            this.authService.token = token;
-            this.authService.user = login;
+          const token = response.token;
+          console.log(token);
+          const payload = this.authService.getPayload(token);
 
-            console.log(user);
-            
-
-            this.router.navigate(['/users']);
-            
-
+          const user = { username: payload.sub };
+          const login = {
+            user,
+            isAuth: true,
+            isAdmin: payload.isAdmin
+          };
+          
+          this.authService.token = token;
+          this.authService.user = login;
+          this.router.navigate(['/users/page/0']);
         },
         error: error => {
-          if(error.status == 401){
-            Swal.fire({
-              title: "Error!",
-              text: "Credenciales incorrectas!",
-              icon: "error"
-            })
-            this.sharingData.errorsEventEmitter.emit(error.error);
+          if (error.status == 401) {
+            Swal.fire('Error en el Login', error.error.message, 'error')
           } else {
+            throw error;
           }
         }
       })
-
     })
-
   }
 
   pageUsersEvent() {
     this.sharingData.pageUsersEventEmitter.subscribe(pageable => {
-      this.users = pageable.users as User[];
+      this.users = pageable.users;
       this.paginator = pageable.paginator;
-  });
-    
+    });
   }
 
   findUserById() {
@@ -114,52 +93,60 @@ export class UserAppComponent implements OnInit {
   addUser() {
     this.sharingData.newUserEventEmitter.subscribe(user => {
       if (user.id > 0) {
-        this.service.updateUser(user).subscribe({
-        next: (userUpdate) => {
-          // Update the user in the user list
-          this.users = this.users.map(user => user.id === userUpdate.id ? {...userUpdate} : user);
-          this.router.navigate(['/users'],
-            { state: { users: this.users, paginator: this.paginator } }
-          );
-          
-          Swal.fire({
-            title: "Guardado!",
-            text: "Usuario guardado con exito!",
-            icon: "success"
-          });
-          // Only navigate after user is added and UI is refreshed
-        },
-        error: (err) => {
-          if(err.status == 400){
-            this.sharingData.errorsEventEmitter.emit(err.error);
-          }
-        }});
-      } else {
-        this.service.createUser(user).subscribe({
-        next: (userCreated) => {
-          this.users = [...this.users, userCreated];
-          this.router.navigate(['/users/page/0'],
-            { state: { users: this.users, paginator: this.paginator } }
-          );
-          Swal.fire({
-            title: "Guardado!",
-            text: "Usuario guardado con exito!",
-            icon: "success"
-          });
-        }
-        ,
-        error: (err) => {
-          if(err.status == 400){
-            this.sharingData.errorsEventEmitter.emit(err.error);
-          }
-        }
+        this.service.updateUser(user).subscribe(
+          {
+            next: (userUpdated) => {
+              this.users = this.users.map(u => (u.id == userUpdated.id) ? { ...userUpdated } : u);
+              this.router.navigate(['/users'], {
+                state: {
+                  users: this.users,
+                  paginator: this.paginator
+               } });
+            
+              Swal.fire({
+                title: "Actualizado!",
+                text: "Usuario editado con exito!",
+                icon: "success"
+              });
+            },
+            error: (err) => {
+              // console.log(err.error)
+              if (err.status == 400) {
+                this.sharingData.errorsEventEmitter.emit(err.error);
+              }
+            }
+          })
 
-        });
+      } else {
+        this.service.createUser(user).subscribe( {
+          next: userNew =>  {
+          console.log(user)
+          this.users = [... this.users, { ...userNew }];
+
+            this.router.navigate(['/users'], {
+              state: {
+                users: this.users,
+                paginator: this.paginator
+             } });
+            
+            Swal.fire({
+              title: "Creado nuevo usuario!",
+              text: "Usuario creado con exito!",
+              icon: "success"
+            });
+          },
+          error: (err) => {
+            // console.log(err.error)
+            // console.log(err.status)
+            if (err.status == 400) {
+              this.sharingData.errorsEventEmitter.emit(err.error);
+            }
+
+        }})
       }
-      
-    });
+
+    })
   }
-  
 
   removeUser(): void {
     this.sharingData.idUserEventEmitter.subscribe(id => {
@@ -173,12 +160,18 @@ export class UserAppComponent implements OnInit {
         confirmButtonText: "Si"
       }).then((result) => {
         if (result.isConfirmed) {
+
           this.service.deleteUser(id).subscribe(() => {
-            this.users = this.users.filter((user) => user.id !== id);
-          });
-          this.router.navigate(['/users/create'], {skipLocationChange: true}).then(() => {
-            this.router.navigate(['/users'], {state: {users: this.users, paginator: this.paginator}});
+            this.users = this.users.filter(user => user.id != id);
+            this.router.navigate(['/users/create'], { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/users'], {
+                state: {
+                  users: this.users,
+                  paginator: this.paginator
+               } });
+            });
           })
+
 
           Swal.fire({
             title: "Eliminado!",

@@ -45,13 +45,14 @@ export class AuthService {
   }
 
   get token() {
-    if (this._token != undefined){
+    if (this._token) {
       return this._token;
       //devuelve el token de la sesion
     } else if(sessionStorage.getItem('token') != null){
       
       //no hace falta convertirlo a objeto porque el token es un string
       this._token = sessionStorage.getItem('token') || ''; 
+      return this._token;
     }
     
     return this._token;
@@ -77,7 +78,7 @@ export class AuthService {
     this._user ={
       isAuth: false,
       isAdmin: false,
-      user: {}
+      user: undefined
     };
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('login');
