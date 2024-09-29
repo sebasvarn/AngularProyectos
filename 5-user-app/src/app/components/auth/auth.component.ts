@@ -32,7 +32,7 @@ export class AuthComponent {
 
       })
     } else {
-      this.sharingData.handleLoginEventEmitter.emit({
+      this.sharingData.handlerLoginEventEmitter.emit({
         username: this.user.username,
         password: this.user.password
       });

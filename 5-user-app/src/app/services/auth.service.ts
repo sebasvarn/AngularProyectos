@@ -64,6 +64,23 @@ export class AuthService {
     return null;
   }
 
+  isAdmin() {
+    return this.user.isAdmin;
+  }
 
+  isAuth() {
+    return this.user.isAuth;
+  }
+
+  logout(){
+    this._token = '';
+    this._user ={
+      isAuth: false,
+      isAdmin: false,
+      user: {}
+    };
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('login');
+  }
 
 }

@@ -43,19 +43,18 @@ export class UserAppComponent implements OnInit {
     this.removeUser();
     this.findUserById();
     this.pageUsersEvent();
-    this.handleLoginEvent();
+    this.handlerLoginEvent();
   }
 
-  handleLoginEvent() {
-    this.sharingData.handleLoginEventEmitter.subscribe(({username, password}) => {
+  handlerLoginEvent() {
+    this.sharingData.handlerLoginEventEmitter.subscribe(({username, password}) => {
       console.log(username, password);
       this.authService.loginUser({username,password}).subscribe({
         next: response => {
             const token = response.token;
             console.log(token);
             const payload = this.authService.getPayload(token);
-            
-
+            console.log(payload);
             const user = {
               username: payload.sub
             };
