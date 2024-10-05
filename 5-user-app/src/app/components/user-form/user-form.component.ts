@@ -5,6 +5,7 @@ import { SharingDataService } from '../../services/sharing-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'user-form',
@@ -20,7 +21,9 @@ export class UserFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sharingData: SharingDataService,
-    private service: UserService) {
+    private service: UserService,
+    private authService: AuthService
+  ) {
     this.user = new User();
   }
 
@@ -41,9 +44,12 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(userForm: NgForm): void {
-    this.sharingData.newUserEventEmitter.emit(this.user);
-    
+    this.sharingData.newUserEventEmitter.emit(this.user);    
+  }
 
+  get admin(): boolean {
+    console.log(this.authService.isAdmin);
+    return this.authService.isAdmin();
   }
 
   onClear(userForm: NgForm): void {

@@ -66,6 +66,21 @@
                         </div>
                     }
 
+                    @if (admin) {
+                        <div class="form-check">
+                                @if (user.admin) {
+
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="user.admin" id="flexCheckDefault" name="admin" checked>
+                                }@else {
+
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="user.admin" id="flexCheckDefault" name="admin">
+                                }
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Es Administrador
+                                </label>
+                        </div>
+                    }
+
                     <div>
                         <button type="submit" class="btn btn-primary m-2" >
                             {{(user.id > 0)? 'Update': 'Create'}}
