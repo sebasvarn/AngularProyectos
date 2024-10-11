@@ -61,6 +61,10 @@ export class UserComponent implements OnInit {
     this.router.navigate(['/users/edit', user.id]);
   }
 
+  onProfile(user: User): void {
+    this.router.navigate(['users/profile', user.id]);
+  }
+
   get admin(): boolean {
     return this.authService.isAdmin(); 
   }

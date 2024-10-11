@@ -4,6 +4,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { authGuard } from './guards/auth.guard';
 import { Forbidden403Component } from './components/forbidden403/forbidden403.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -37,5 +38,9 @@ export const routes: Routes = [
         path: 'forbidden',
         component: Forbidden403Component
     },
+    {
+        path: 'users/profile/:id',
+        component: ProfileComponent,
+    }
 
 ];

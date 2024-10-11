@@ -1,0 +1,13 @@
+<div class="card w-50 mx-auto">
+    <div class="card-header">
+        
+
+        <div class="mb-3">
+
+            <label for="formFile" class="form-label">Cambiar foto de Perfil</label>
+            <input class="form-control w-50" type="file" id="formFile" (change)="selectPhoto($event)">
+            
+            <button class="btn btn-primary mt-3" (click)="uploadPhoto()" >Subir</button>
+        </div>
+    </div>   
+</div>

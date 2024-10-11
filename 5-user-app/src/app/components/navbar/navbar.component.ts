@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   imports: [RouterModule],
   templateUrl: './navbar.component.html'
 })
-export class NavbarComponent {
+export class NavbarComponent  {
   @Input() users : User[] = [];
   @Input() paginator : any = {};
 
@@ -46,5 +46,9 @@ export class NavbarComponent {
         }
     })
 
+  }
+
+  onProfile(user: User): void {
+    
   }
 }

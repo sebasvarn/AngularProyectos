@@ -12,7 +12,7 @@
 <table class="table table-hover table-striped ">
     <thead>
         <tr >
-            <th>id</th>
+            <th>Perfil</th>
             <th>name</th>
             <th>lastname</th>
             <th>email</th>
@@ -27,7 +27,8 @@
     <tbody>
         @for (user of users; track $index) {
         <tr>
-            <td> {{user.id}} </td>
+            
+            <td><button class="btn btn-outline-primary btn-sm" (click)="onProfile(user)">Ver {{user.id}}</button> </td>
             <td> {{user.name}} </td>
             <td> {{user.lastname}} </td>
             <td> {{user.email}} </td>

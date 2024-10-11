@@ -7,6 +7,7 @@ import { User } from '../models/user';
 export class SharingDataService {
 
   private _newUserEventEmitter: EventEmitter<User> = new EventEmitter();
+  
 
   private _idUserEventEmitter = new EventEmitter();
 
