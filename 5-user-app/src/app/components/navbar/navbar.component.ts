@@ -48,7 +48,5 @@ export class NavbarComponent  {
 
   }
 
-  onProfile(user: User): void {
-    
-  }
+  
 }

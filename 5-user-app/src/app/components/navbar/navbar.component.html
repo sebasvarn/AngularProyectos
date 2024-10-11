@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAuth">
             <span class=" navbar-link mg-auto">
                 @if (login.isAuth) {
-                    <a class="text-decoration-none ms-3" (click)="onProfile(login.user)">{{login.user.username}}</a>
+                    <a class="text-decoration-none ms-3" >{{login.user.username}}</a>
                     <a class=" text-decoration-none ms-3 btn btn-outline-primary btn-sm" (click)="handlerLogout()">Logout</a>
                 }@else {
                     <a class=" text-decoration-none btn btn-outline-success btn-sm" [routerLink]="['/login']">Login</a>

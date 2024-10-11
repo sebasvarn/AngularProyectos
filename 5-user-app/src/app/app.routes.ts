@@ -20,6 +20,9 @@ export const routes: Routes = [
         path: 'users/create', 
         component: UserFormComponent,
         canActivate: [authGuard],
+        data: {
+            requiresAdmin: true
+        }
     },
     {
         path: 'users/page/:page',
@@ -29,6 +32,9 @@ export const routes: Routes = [
         path: 'users/edit/:id',
         component: UserFormComponent,
         canActivate: [authGuard],
+        data: {
+            requiresAdmin: true
+        }
     },
     {
         path: 'login',
@@ -41,6 +47,10 @@ export const routes: Routes = [
     {
         path: 'users/profile/:id',
         component: ProfileComponent,
+        canActivate: [authGuard],
+        data: {
+            requiresAdmin: false
+        }
     }
 
 ];

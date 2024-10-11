@@ -44,4 +44,8 @@ export class UserService {
     return this.http.post<User>(`${this.url}/upload`, formData);
   }
   
+  showPhoto(photo: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/upload/img/${photo}`);
+  }
+
 }

@@ -14,9 +14,6 @@ export class AuthService {
     isAdmin: false,
     user: {}
   };
-
-
-
   
   constructor(private http: HttpClient) {}
 

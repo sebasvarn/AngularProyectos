@@ -16,7 +16,9 @@ export class ProfileComponent implements OnInit {
 
   user !: User;
   file !: File;
+  title : String = "Profile details";
 
+  url = 'http://localhost:8080/api/users';
   constructor(private http: HttpClient, private route: ActivatedRoute , private service: UserService, private sharingData: SharingDataService) {
    }
   ngOnInit(): void {
@@ -28,6 +30,7 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
+    console.log(this.user);
   }
 
   

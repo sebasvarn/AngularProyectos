@@ -1,13 +1,18 @@
 <div class="card w-50 mx-auto">
     <div class="card-header">
-        
-
         <div class="mb-3">
+            <h4 class="card-title">{{title}}</h4>
+        </div>   
+    </div>
+        <div class ="card-body" >
+            <div class="text-center">
+                <img src="{{url + '/upload/img/' + user.photo}}" alt="{{user.photo}}"  width="100" height="100" class="rounded-circle">
+            </div>
+            
 
             <label for="formFile" class="form-label">Cambiar foto de Perfil</label>
             <input class="form-control w-50" type="file" id="formFile" (change)="selectPhoto($event)">
             
             <button class="btn btn-primary mt-3" (click)="uploadPhoto()" >Subir</button>
         </div>
-    </div>   
 </div>
