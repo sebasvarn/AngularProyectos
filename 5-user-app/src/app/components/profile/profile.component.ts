@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   user !: User;
   file !: File;
   title : String = "Profile details";
+  login = this.authService.user;
 
   url = 'http://localhost:8080/api/users/upload/img/';
   constructor(private http: HttpClient, private route: ActivatedRoute , private service: UserService, private sharingData: SharingDataService, private authService: AuthService) {
@@ -33,18 +34,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  showUser() {
-    console.log(this.user);
-    console.log(this.authService.isAuth());
-    console.log(this.authService.isAdmin());
-  }
+  
   
   
 
   selectPhoto(event: any) {
     this.file = event.target.files[0] ;
     console.log(this.file);
-    console.log(this.user.id);
   }
 
   uploadPhoto() {
