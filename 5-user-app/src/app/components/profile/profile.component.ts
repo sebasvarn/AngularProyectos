@@ -5,6 +5,7 @@ import { SharingDataService } from '../../services/sharing-data.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,8 +19,8 @@ export class ProfileComponent implements OnInit {
   file !: File;
   title : String = "Profile details";
 
-  url = 'http://localhost:8080/api/users';
-  constructor(private http: HttpClient, private route: ActivatedRoute , private service: UserService, private sharingData: SharingDataService) {
+  url = 'http://localhost:8080/api/users/upload/img/';
+  constructor(private http: HttpClient, private route: ActivatedRoute , private service: UserService, private sharingData: SharingDataService, private authService: AuthService) {
    }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -30,9 +31,13 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
-    console.log(this.user);
   }
 
+  showUser() {
+    console.log(this.user);
+    console.log(this.authService.isAuth());
+    console.log(this.authService.isAdmin());
+  }
   
   
 
@@ -43,15 +48,23 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadPhoto() {
-    console.log(this.user.id);
-    this.service.uploadPhoto(this.user.id, this.file).subscribe(user => {
-      this.user = user;
-      Swal.fire({
-        title: "Actualizado!",
-        text: "Imagen actualizada con exito!",
-        icon: "success"
-      })
-    }); 
-    
-  }
+    this.service.uploadPhoto(this.user.id, this.file).subscribe({ 
+        next: user => {
+          this.user = user;
+          console.log(this.user.photo);      
+          Swal.fire({
+              title: "Actualizado!",
+              text: "Imagen actualizada con exito!",
+              icon: "success"
+          });
+        }, 
+        error: err => {
+           Swal.fire({
+               title: "Error!",
+               text: "No se pudo actualizar la imagen!",
+               icon: "error"
+           })
+        }
+    })
+    }
 }
