@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 export class ProfileComponent implements OnInit {
 
   user !: User;
-  file !: File;
+  file !: File | null;
   title : String = "Profile details";
   login = this.authService.user;
 
@@ -39,28 +39,43 @@ export class ProfileComponent implements OnInit {
   
 
   selectPhoto(event: any) {
-    this.file = event.target.files[0] ;
+    this.file = event.target.files[0];
     console.log(this.file);
+    if(this.file) {
+
+      if(this.file.type.indexOf('image') < 0) {
+        Swal.fire({
+          title: "Error!",
+          text: "El archivo seleccionado no es una imagen!",
+          icon: "error"
+        })
+        this.file = null;
+      }
+    }
   }
 
   uploadPhoto() {
-    this.service.uploadPhoto(this.user.id, this.file).subscribe({ 
+    if(this.file) {
+
+      this.service.uploadPhoto(this.user.id, this.file).subscribe({ 
+      
         next: user => {
-          this.user = user;
-          console.log(this.user.photo);      
-          Swal.fire({
-              title: "Actualizado!",
-              text: "Imagen actualizada con exito!",
-              icon: "success"
-          });
-        }, 
-        error: err => {
-           Swal.fire({
-               title: "Error!",
-               text: "No se pudo actualizar la imagen!",
-               icon: "error"
-           })
-        }
-    })
+            this.user = user;
+            console.log(this.user.photo);      
+            Swal.fire({
+                title: "Actualizado!",
+                text: "Imagen actualizada con exito!",
+                icon: "success"
+            });
+          }, 
+          error: err => {
+            Swal.fire({
+                title: "Error!",
+                text: "No se pudo actualizar la imagen!",
+                icon: "error"
+            })
+          }
+      })
+      }
     }
 }
